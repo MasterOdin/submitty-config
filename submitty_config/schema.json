@@ -1,0 +1,113 @@
+{
+  "title": "Autograder Config",
+  "type": "object",
+  "properties": {
+    "assignment_message": {
+      "type": "string"
+    },
+    "testcases": {
+      "type": "array",
+      "items": {
+        "title": "Testcase",
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["execution", "compilation", "file_check"],
+            "default": "execution"
+          },
+          "title": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string",
+            "default": ""
+          },
+          "points": {
+            "type": "integer",
+            "default": 0
+          },
+          "hidden": {
+            "type": "boolean",
+            "default": false
+          },
+          "extra_credit": {
+            "type": "boolean",
+            "default": false
+          },
+          "filename": {
+            "type": ["string", "array"],
+            "items": {
+              "type": "string"
+            }
+          },
+          "executable_name": {
+            "type": ["string", "array"],
+            "items": {
+              "type": "string"
+            }
+          },
+          "command": {
+            "type": ["string", "array"],
+            "items": {
+              "type": "string"
+            }
+          },
+          "resource_limits": {
+            "type": "object",
+          },
+          "validation": {
+
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "textboxes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "default": ""
+                },
+                "rows": {
+                  "type": "integer",
+                  "default": 1
+                },
+                "filename": {
+                  "type": "string",
+                  "default": ""
+                },
+                "images": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "image_name": {
+                        "type": "string",
+                        "default": ""
+                      },
+                      "image_height": {
+                        "type": "integer",
+                        "default": 0
+                      },
+                      "image_width": {
+                        "type": "integer",
+                        "default": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": ["title"]
+      }
+    }
+  }
+}
