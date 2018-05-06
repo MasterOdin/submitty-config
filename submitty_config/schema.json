@@ -98,6 +98,47 @@
         ]
       }
     },
+    "autograding": {
+      "type": "object",
+      "properties": {
+        "submission_to_compilation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "submission_to_runner": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "compilation_to_runner": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "submission_to_validation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "compilation_to_validation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "work_to_details": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "testcases": {
       "type": "array",
       "items": {

@@ -2,11 +2,20 @@ dist: trusty
 sudo: true
 language: python
 python:
-  - "3.5"
-  - "3.6"
+  - '3.4'
+  - '3.5'
+  - '3.6'
 
 cache: pip
 
 script:
   - python setup.py install
   - python setup.py test
+
+deploy:
+  provider: pypi
+  user: Master_Odin_Bot
+  password:
+    secure: Y2B7TzaisRB9IBT5BKIZqb4Vod13mer4/YlzNnYr3g1rzsnSrH3JPEIFV5RCqnxKCFil9JJDB4QPF5OT5/KYhWj+l7L24zjrHc06RYCs/qmD+jB8FT/AaTf9WsDfY17wlfimf8Dx/0YASBBiFK3LEsGBa0ek5LV9vjR5l4vcmtkgzAMwPsK8D2/5xny9C9xyXdzO2LGcuQw1oS+l4/y/jn+XOrmsgWBzrmFuYbj7uK4DT+pqZ2w/wgtOcd+zv+fXfmGKdk8CN8mV0Qtq+5PA90TclGKp9kKHFJ3/qGh92Aq5Xh9Tre9njJNiiiycGe/I/Sz5XKRxGVCuLW2zFOWSjoqxApvxeQ3LtRWyVkzary7kHf7jH+Rq+32J9fqYOiMBvLl1lGFYGVEbgdRtksuBZ4tBeTaLFfI426iUBAuRVomlGV5XbqWnEZWVIAht3fi5l7RFxD7egrJMPauL0uSXJTKJAn3lX1WwgFHIPBQiPu2xtPESW03WvNTaTCjYmSsThNLTm7GIdvK2awBSiHPoWrgJMVu9R2+RHYTDNYAWXKh7Nzkq5I4paAna02bBvjKcDMSCyA7L78CXk8G7JcOYDMijIbDCNIkWV4NQW+z0LI0aVsh7ioT71gZ/uWWYVtW4TJN29saja7uFOROESt3I1VMXSoaAe0htVGO5s2S5FQU=
+  on:
+    tags: true
