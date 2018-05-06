@@ -8,8 +8,8 @@ from submitty_config.main import lint
 def load_test_cases():
     current_dir = os.path.dirname(os.path.realpath(__file__))
     ret = []
-    for entry in os.scandir(os.path.join(current_dir, 'data')):
-        ret.append([entry.name, os.path.join(current_dir, 'data', entry.name)])
+    for entry in os.listdir(os.path.join(current_dir, 'data')):
+        ret.append([entry, os.path.join(current_dir, 'data', entry)])
     return ret
 
 

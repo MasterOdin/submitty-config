@@ -20,7 +20,7 @@ URL = __URL__
 EMAIL = __EMAIL__
 AUTHOR = __AUTHOR__
 LICENSE = __LICENSE__
-REQUIRES_PYTHON = '>=3.5'
+REQUIRES_PYTHON = '>=3.4.0'
 VERSION = __VERSION__
 
 # What packages are required for this module to be executed?
