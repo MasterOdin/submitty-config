@@ -1,0 +1,3 @@
+submitty-config
+===============
+

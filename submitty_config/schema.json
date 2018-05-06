@@ -1,9 +1,102 @@
 {
+  "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Autograder Config",
   "type": "object",
   "properties": {
     "assignment_message": {
       "type": "string"
+    },
+    "grading_parameters": {
+      "type": "object",
+      "properties": {
+        "AUTO_POINTS": {
+          "type": "integer"
+        },
+        "EXTRA_CREDIT_POINTS": {
+          "type": "integer"
+        }
+      }
+    },
+    "part_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "one_part_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "resource_limits": {
+      "type": "object",
+      "properties": {
+        "RLIMIT_CPU": {
+          "type": "number"
+        },
+        "RLIMIT_FSIZE": {
+          "type": "number"
+        },
+        "RLIMIT_DATA": {
+          "type": "number"
+        },
+        "RLIMIT_STACK": {
+          "type": "number"
+        },
+        "RLIMIT_CORE": {
+          "type": "number"
+        },
+        "RLIMIT_RSS": {
+          "type": "number"
+        },
+        "RLIMIT_NPROC": {
+          "type": "number"
+        },
+        "RLIMIT_NOFILE": {
+          "type": "number"
+        },
+        "RLIMIT_MEMLOCK": {
+          "type": "number"
+        },
+        "RLIMIT_AS": {
+          "type": ["number", "string"]
+        },
+        "RLIMIT_LOCKS": {
+          "type": "number"
+        },
+        "RLIMIT_SIGPENDING": {
+          "type": "number"
+        },
+        "RLIMIT_MSGQUEUE": {
+          "type": "number"
+        },
+        "RLIMIT_NICE": {
+          "type": ["number", "string"]
+        },
+        "RLIMIT_RTPRIO": {
+          "type": "number"
+        },
+        "RLIMIT_RTTIME": {
+          "type": "number"
+        }
+      }
+    },
+    "allow_system_calls": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "PROCESS_CONTROL_MEMORY_ADVANCED", "PROCESS_CONTROL_NEW_PROCESS_THREAD",
+          "PROCESS_CONTROL_SYNCHRONIZATION", "PROCESS_CONTROL_SCHEDULING", "PROCESS_CONTROL_ADVANCED",
+          "PROCESS_CONTROL_GET_SET_USER_GROUP_ID", "FILE_MANAGEMENT_MOVE_DELETE_RENAME_FILE_DIRECTORY",
+          "FILE_MANAGEMENT_PERMISSIONS", "FILE_MANAGEMENT_CAPABILITIES", "FILE_MANAGEMENT_EXTENDED_ATTRIBUTES",
+          "FILE_MANAGEMENT_RARE", "DEVICE_MANAGEMENT_ADVANCED", "DEVICE_MANAGEMENT_NEW_DEVICE",
+          "INFORMATION_MAINTENANCE_ADVANCED", "COMMUNICATIONS_AND_NETWORKING_SOCKETS_MINIMAL",
+          "COMMUNICATIONS_AND_NETWORKING_SOCKETS", "COMMUNICATIONS_AND_NETWORKING_SIGNALS",
+          "COMMUNICATIONS_AND_NETWORKING_INTERPROCESS_COMMUNICATION", "COMMUNICATIONS_AND_NETWORKING_KILL",
+          "UNKNOWN", "UNKNOWN_MODULE", "UNKNOWN_REMAP_PAGES"
+        ]
+      }
     },
     "testcases": {
       "type": "array",
@@ -13,7 +106,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["execution", "compilation", "file_check"],
+            "enum": ["execution", "compilation", "FileCheck"],
             "default": "execution"
           },
           "title": {
@@ -55,14 +148,137 @@
           },
           "resource_limits": {
             "type": "object",
+            "properties": {
+              "RLIMIT_CPU": {
+                "type": "number"
+              },
+              "RLIMIT_FSIZE": {
+                "type": "number"
+              },
+              "RLIMIT_DATA": {
+                "type": "number"
+              },
+              "RLIMIT_STACK": {
+                "type": "number"
+              },
+              "RLIMIT_CORE": {
+                "type": "number"
+              },
+              "RLIMIT_RSS": {
+                "type": "number"
+              },
+              "RLIMIT_NPROC": {
+                "type": "number"
+              },
+              "RLIMIT_NOFILE": {
+                "type": "number"
+              },
+              "RLIMIT_MEMLOCK": {
+                "type": "number"
+              },
+              "RLIMIT_AS": {
+                "type": ["number", "string"]
+              },
+              "RLIMIT_LOCKS": {
+                "type": "number"
+              },
+              "RLIMIT_SIGPENDING": {
+                "type": "number"
+              },
+              "RLIMIT_MSGQUEUE": {
+                "type": "number"
+              },
+              "RLIMIT_NICE": {
+                "type": ["number", "string"]
+              },
+              "RLIMIT_RTPRIO": {
+                "type": "number"
+              },
+              "RLIMIT_RTTIME": {
+                "type": "number"
+              }
+            }
           },
           "validation": {
-
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "string",
+                  "enum": ["warnIfNotEmpty", "errorIfNotEmpty", "warnIfEmpty", "errorIfEmpty",
+                    "diff", "myersDiffbyLinebyWord", "myersDiffbyLineNoWhite", "myersDiffbyLine",
+                    "myersDiffbyLinebyChar", "myersDiffbyLinebyCharExtraStudentOutputOk", "diffLineSwapOk",
+                    "ImageDiff", "EmmaCoverageReportGrader", "EmmaInstrumentationGrader", "JUnitTestGrader",
+                    "MultipleJUnitTestGrader", "intComparison", "custom"]
+                },
+                "description": {
+                  "type": "string"
+                },
+                "actual_file": {
+                  "type": ["string", "array"],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "expected_file": {
+                  "type": ["string", "array"],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "deduction": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1.0
+                },
+                "show_message": {
+                  "type": "string",
+                  "enum": ["always", "never", "on_success", "on_failure"],
+                  "default": "always"
+                },
+                "show_actual": {
+                  "type": "string",
+                  "enum": ["always", "never", "on_success", "on_failure"],
+                  "default": "always"
+                },
+                "show_expected": {
+                  "type": "string",
+                  "enum": ["always", "never", "on_success", "on_failure"],
+                  "default": "always"
+                },
+                "show_difference_image": {
+                  "type": "string",
+                  "enum": ["always", "never", "on_success", "on_failure"],
+                  "default": "always"
+                },
+                "acceptable_threshold": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "default": 0
+                },
+                "failure_message": {
+                  "type": "string"
+                },
+                "num_tests": {
+                  "type": "integer"
+                },
+                "comparison": {
+                  "type": "string",
+                  "_enum": ["ge", "lt", "FIXME"]
+                },
+                "term": {
+                  "type": "number"
+                }
+              }
+            }
           },
           "actions": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "enum": ["Delay", "Screenshot", ""]
             }
           },
           "textboxes": {
@@ -105,8 +321,7 @@
               }
             }
           }
-        },
-        "required": ["title"]
+        }
       }
     }
   }

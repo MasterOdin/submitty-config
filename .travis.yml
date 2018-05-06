@@ -1,0 +1,11 @@
+dist: trusty
+sudo: true
+language: python
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+script:
+  - python setup.py install
+  - python -m unittest -v
